@@ -1,5 +1,6 @@
 package br.com.kayropereira.personmanager.personmanagerapi.controller;
 
+import br.com.kayropereira.personmanager.personmanagerapi.dto.response.MessageResponseDTO;
 import br.com.kayropereira.personmanager.personmanagerapi.entity.Person;
 import br.com.kayropereira.personmanager.personmanagerapi.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,11 @@ public class PersonController {
 
     //@RequestBoby informa que o objeto está vindo de uma requisição
     @PostMapping
-    public String createPerson(@RequestBody Person person){
-        personRepository.save(person);
-        return "API Test!";
+    public MessageResponseDTO createPerson(@RequestBody Person person){
+        Person savePerson = personRepository.save(person);
+        return MessageResponseDTO
+                .builder()
+                .message("Criada pessoa com Id " + savePerson.getId())
+                .build();
     }
 }
