@@ -21,7 +21,7 @@ public class PersonService {
         Person savePerson = personRepository.save(person);
         return MessageResponseDTO
                 .builder()
-                .message("Criada pessoa com Id " + savePerson.getId())
+                .message("Criado pessoa com Id " + savePerson.getId())
                 .build();
     }
 }
