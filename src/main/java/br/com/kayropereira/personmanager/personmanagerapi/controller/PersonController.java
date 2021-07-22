@@ -38,6 +38,12 @@ public class PersonController {
         return personService.findById(id);
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletetById(Long id) throws PersonNotFoundException {
+        personService.delete(id);
+    }
+
     //    Versão de chamada dos métodos dentro do controller - não é uma boa prática
 //    private PersonRepository personRepository;
 //
