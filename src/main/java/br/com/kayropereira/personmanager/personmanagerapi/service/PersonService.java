@@ -6,25 +6,20 @@ import br.com.kayropereira.personmanager.personmanagerapi.entity.Person;
 import br.com.kayropereira.personmanager.personmanagerapi.exceptioin.PersonNotFoundException;
 import br.com.kayropereira.personmanager.personmanagerapi.mapper.PersonMapper;
 import br.com.kayropereira.personmanager.personmanagerapi.repository.PersonRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor(onConstructor = @__(@Autowired)) //Injeção de dependência no construtor de forma reduzida
 public class PersonService {
 
     private PersonRepository personRepository;
 
     private final PersonMapper personMapper = PersonMapper.INSTANCE;
-
-    @Autowired
-    public PersonService(PersonRepository personRepository) {
-        this.personRepository = personRepository;
-    }
 
     public MessageResponseDTO createPerson(PersonDTO personDTO){
         Person personToSave = personMapper.toModel(personDTO);
@@ -44,12 +39,6 @@ public class PersonService {
         Person person = verifyIfExists(id);
 
         return personMapper.toDTO(person);
-//        Optional<Person> optionalPerson = personRepository.findById(id);
-//
-//        if(optionalPerson.isEmpty()){
-//            throw new PersonNotFoundException(id);
-//        }
-//        return personMapper.toDTO(optionalPerson.get());
     }
 
     public void delete(Long id) throws PersonNotFoundException {
